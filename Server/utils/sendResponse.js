@@ -1,9 +1,10 @@
-const sendResponse = (res, message, data, redirectURL) => {
+const sendResponse = (res, message, data, redirectURL, key) => {
   res.status(200).json({
-    seccess: true,
+    success: true,
     message: message,
     data: data,
     redirectURL: redirectURL,
+    key: key,
   });
 };
 

@@ -43,6 +43,10 @@ const userSchema = new Schema(
     },
     forgotPasswordOtp: String,
     forgotPasswordExpiry: Date,
+    subscription: {
+      id: String,
+      status: String,
+    },
   },
   {
     timestamps: true,
@@ -71,6 +75,7 @@ userSchema.methods = {
         id: this._id,
         email: this.email,
         role: this.role,
+        subscription: this.subscription,
       },
       process.env.JWT_SECRET,
       { expiresIn: "90d" }

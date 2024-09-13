@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import courceRouter from "./routes/courseRoute.js";
 import lessonRouter from "./routes/lessonRoute.js";
+import paymentRoute from "./routes/paymentRoute.js";
 
 config();
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/courses", courceRouter);
 app.use("/api/v1/lesson", lessonRouter);
+app.use("/api/v1/payments", paymentRoute);
 
 ////////////////////////////////////
 //ERROR MIDDLEWARE
