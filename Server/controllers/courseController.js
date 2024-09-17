@@ -4,6 +4,7 @@ import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 import cloudinary from "cloudinary";
 import fs from "fs";
+import filters from "../utils/filters.js";
 
 ////////////////////////////////
 //CREATE COURSE
@@ -129,9 +130,25 @@ const deleteCourse = catchAsync(async (req, res, next) => {
 ////////////////////////////////
 //GET ALL COURSES
 const getAllCourse = catchAsync(async (req, res) => {
-  const courses = await Course.find({}).select("-lectures");
+  const filter = new filters(Course.find({}).select("-lectures"), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate()
+    .populate("createdBy", "name avatar");
+
+  const courses = await filter.query;
 
   sendResponse(res, "All courses", courses);
+
+  //   const filter = new filters(Books.find(), req.query)
+  //   .filter()
+  //   .sort()
+  //   .limitFields()
+  //   .paginate()
+  //   .populate("createdBy", "name avatar");
+
+  // const books = await filter.query;
 });
 
 ////////////////////////////////
